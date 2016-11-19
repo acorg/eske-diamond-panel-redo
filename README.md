@@ -2,8 +2,15 @@
 
 This repo contains a
 [slurm-pipeline](https://github.com/acorg/slurm-pipeline) specification
-file (`specification.json`) and associated scripts for processing ancient
-DNA samples from Eske Willerslev using BLAST (specifically, blastn).
+file (`specification.json`) and associated scripts for post-processing
+ancient DNA samples from Eske Willerslev that have already been searched
+using DIAMOND.
+
+In the original run, we did not group samples as weren't aware that some
+samples had been sequenced multiple times.  The code in this repo re-does
+the final step of the original processing (the making of a blue plot
+panel), but collects all reads (across different sequencing runs) for each
+sample.
 
 ### Usage
 
