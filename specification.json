@@ -1,0 +1,22 @@
+{
+    "steps": [
+        {
+            "cwd": "00-start",
+            "name": "start",
+            "script": "00-start/start.sh"
+        },
+        {
+            "collect": true,
+            "cwd": "01-panel",
+            "dependencies": ["blastn"],
+            "name": "panel",
+            "script": "01-panel/sbatch.sh"
+        },
+        {
+            "cwd": "02-stop",
+            "dependencies": ["panel"],
+            "name": "stop",
+            "script": "02-stop/sbatch.sh"
+        }
+    ]
+}

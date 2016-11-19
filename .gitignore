@@ -1,0 +1,9 @@
+01-split/chunk-*.fasta
+02-blastn/chunk-*.json.bz2
+03-panel/out
+03-panel/summary-virus
+*/slurm-*.out
+slurm-pipeline.done
+slurm-pipeline.log
+status.json
+*.log
