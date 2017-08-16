@@ -16,29 +16,32 @@ sample=`/bin/pwd | tr / '\012' | egrep 'DA[0-9]+'`
 echo "01-panel started at `date`" >> $log
 echo "  Sample is '$sample'" >> $log
 
-json=
-fastq=
-
-for dir in ../../../2016*/Sample_ESW_*${sample}_*
-do
-    for file in $dir/04-diamond/*.json.bz2
-    do
-        json="$json $file"
-    done
-
-    for file in $dir/03-find-unmapped/*-unmapped.fastq.gz
-    do
-        fastq="$fastq $file"
-    done
-done
-
-dbfile=$HOME/scratch/root/share/ncbi/viral-refseq/viral.protein.fasta
+dbfile=$HOME/scratch/root/share/ncbi/viral-refseq/viral-protein-20161124/viral.protein.fasta
 
 if [ ! -f $dbfile ]
 then
     echo "DIAMOND database FASTA file $dbfile does not exist!" >> $log
     exit 1
 fi
+
+echo "  Input files are:" >> $log
+
+json=
+fastq=
+for dir in ../../../2016*/Sample_ESW_*${sample}_*
+do
+    for file in $dir/04-diamond/*.json.bz2
+    do
+        echo "    JSON : $file" >> $log
+        json="$json $file"
+    done
+
+    for file in $dir/03-find-unmapped/*-unmapped.fastq.gz
+    do
+        echo "    FASTQ: $file" >> $log
+        fastq="$fastq $file"
+    done
+done
 
 echo "  noninteractive-alignment-panel.py started at `date`" >> $log
 srun -n 1 noninteractive-alignment-panel.py \
@@ -54,9 +57,9 @@ srun -n 1 noninteractive-alignment-panel.py \
   --diamondDatabaseFastaFilename $dbfile > summary-proteins
 echo "  noninteractive-alignment-panel.py stopped at `date`" >> $log
 
-echo "  group-summary-proteins.py started at `date`" >> $log
-group-summary-proteins.py < summary-proteins > summary-virus
-echo "  group-summary-proteins.py stopped at `date`" >> $log
+echo "  group-summary-pathogens.py started at `date`" >> $log
+echo summary-proteins | proteins-to-pathogens.py > summary-virus
+echo "  group-summary-pathogens.py stopped at `date`" >> $log
 
 echo "01-panel stopped at `date`" >> $log
 echo >> $log

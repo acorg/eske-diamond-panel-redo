@@ -8,7 +8,7 @@ run:
 
 # Keep a clean-1 target to match what we have in other pipeline Makefiles.
 clean-1:
-	@echo Nothing to do
+	@echo Nothing to do for clean-1
 
 # Remove intermediate files.
 clean-2: clean-1

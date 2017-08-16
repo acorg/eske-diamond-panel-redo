@@ -3,20 +3,20 @@
         {
             "cwd": "00-start",
             "name": "start",
-            "script": "00-start/start.sh"
+            "script": "start.sh"
         },
         {
             "collect": true,
             "cwd": "01-panel",
-            "dependencies": ["blastn"],
+            "dependencies": ["start"],
             "name": "panel",
-            "script": "01-panel/sbatch.sh"
+            "script": "sbatch.sh"
         },
         {
             "cwd": "02-stop",
             "dependencies": ["panel"],
             "name": "stop",
-            "script": "02-stop/sbatch.sh"
+            "script": "sbatch.sh"
         }
     ]
 }
